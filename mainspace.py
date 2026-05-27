@@ -150,6 +150,3 @@ while True:
         break
     else:
         print("Geçersiz seçim, lütfen tekrar deneyin.")
-
-sonuc = lib.ara("orwell")
-print("\nArama sonucu:", [str(k) for k in sonuc])
