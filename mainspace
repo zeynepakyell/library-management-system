@@ -1,0 +1,52 @@
+class Kitap:
+    def __init__(self, ad, yazar, yil):
+        self.ad = ad
+        self.yazar = yazar
+        self.yil = yil
+        self.odunc = False
+
+    def __str__(self):
+        durum = "Ödünçte" if self.odunc else "Rafta"
+        return f"{self.ad} - {self.yazar} ({self.yil}) [{durum}]"
+
+
+class Kutuphane:
+    def __init__(self):
+        self.kitaplar = []
+
+    def ekle(self, kitap):
+        self.kitaplar.append(kitap)
+        print(f"'{kitap.ad}' eklendi.")
+
+    def ara(self, kelime):
+        sonuclar = [k for k in self.kitaplar
+                    if kelime.lower() in k.ad.lower() or kelime.lower() in k.yazar.lower()]
+        return sonuclar
+
+    def odunc_ver(self, ad):
+        for k in self.kitaplar:
+            if k.ad == ad:
+                if k.odunc:
+                    print("Kitap zaten ödünçte!")
+                else:
+                    k.odunc = True
+                    print(f"'{ad}' ödünç verildi.")
+                return
+        print("Kitap bulunamadı.")
+
+    def listele(self):
+        for k in self.kitaplar:
+            print(k)
+
+
+# Kullanım
+lib = Kutuphane()
+lib.ekle(Kitap("Dune", "Frank Herbert", 1965))
+lib.ekle(Kitap("1984", "George Orwell", 1949))
+lib.ekle(Kitap("Sefiller", "Victor Hugo", 1862))
+
+lib.odunc_ver("Dune")
+lib.listele()
+
+sonuc = lib.ara("orwell")
+print("\nArama sonucu:", [str(k) for k in sonuc])
